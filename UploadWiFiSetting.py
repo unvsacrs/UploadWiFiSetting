@@ -21,7 +21,6 @@ def list_serialports():
 def write(path, serialport):
     with open(path, 'r') as f:                                                                                      
         data = f.read()
-        print(data)
         f.close()
 
         ser = serial.Serial(serialport, 115200)
@@ -30,6 +29,9 @@ def write(path, serialport):
         ser.write(data.encode())
         time.sleep(0.5)
         ser.write(b'\x03')
+
+        time.sleep(0.1)
+        print(ser.read_all().decode())
 
         ser.close()
 
